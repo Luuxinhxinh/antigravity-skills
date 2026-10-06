@@ -1,87 +1,85 @@
-# Skill Auto-Routing, Proactive Recommendation & Status Tracking
+# Skill Auto-Routing & Intent Execution Engine
 
-Quy tắc bắt buộc về việc nhận diện, tự kích hoạt, điều phối quản lý Skill và hiển thị trạng thái:
-
----
-
-## 0. Lưới lọc Ý định: Phân biệt Câu hỏi (Inquiry) và Lệnh hành động (Execution)
-Trước khi kích hoạt bất kỳ Tool can thiệp hệ thống (chạy terminal, tải package, cài extension, sửa code, tạo file) hoặc Skill hành động nào, Agent BẮT BUỘC phải phân loại ý định người dùng qua lưới lọc:
-
-- **Loại 1: INQUIRY / DISCOVERY (Khảo sát, tham vấn, hỏi thông tin)**
-  * *Dấu hiệu:* "có ... được không?", "có cách nào...", "có extension/thư viện nào...", "tính năng này là gì?", "dùng kiểu gì?"...
-  * *Quy tắc:* **TUYỆT ĐỐI KHÔNG tự ý kích hoạt tool thực thi/cài đặt/can thiệp máy tính.** Chỉ trả lời tư vấn, giải thích nguyên lý, liệt kê các giải pháp khả thi và ưu/nhược điểm. Nếu muốn làm, phải hỏi xác nhận từ người dùng trước.
-  
-- **Loại 2: EXECUTION / ACTION (Yêu cầu hành động rõ ràng)**
-  * *Dấu hiệu:* "cài cái A đi", "tạo file X", "sửa lỗi này", "chạy lệnh...", "triển khai phương án này"...
-  * *Quy tắc:* Được phép kích hoạt Tool/Skill tương ứng để thực hiện nhiệm vụ.
-
-- **Loại 3: CONFIRMATION (Xác nhận sau tư vấn)**
-  * Khi người dùng đồng ý ("ok", "làm đi", "triển khai đi"), Agent mới chuyển trạng thái từ Tư vấn sang Hành động.
+## 0. Phân loại ý định (làm trước mọi thứ)
+- **INQUIRY** (hỏi, khảo sát: "có cách nào...", "được không?", "là gì?"): chỉ tư vấn, giải thích, KHÔNG chạy tool, KHÔNG sửa code, KHÔNG can thiệp hệ thống.
+- **EXECUTION** (lệnh rõ ràng: "cài", "tạo", "sửa", "chạy", "triển khai"): được kích hoạt skill/tool tương ứng.
+- **CONFIRMATION** ("ok", "làm đi", "triển khai đi"): chỉ có hiệu lực với ĐỀ XUẤT CỤ THỂ GẦN NHẤT. Nếu có nhiều đề xuất, hỏi lại để làm rõ bạn muốn chọn phương án nào trước khi hành động.
+- **Câu lẫn lộn** (vừa hỏi vừa nhờ làm: "sửa lỗi này được không?", "tối ưu đoạn này giúp mình với?"): coi là INQUIRY, tư vấn hướng đi ngắn gọn rồi hỏi xác nhận trước khi thực hiện.
 
 ---
 
-## 1. Cơ chế Tự động Kích hoạt & Điều phối (Autonomous Routing & Management)
-Khi nhận yêu cầu thuộc nhóm **EXECUTION / ACTION** từ người dùng, Agent PHẢI chủ động đối chiếu với danh sách các skills hiện có và tự động đọc file `SKILL.md` tương ứng để thực hiện chuẩn quy trình:
+## 1. Bảng định tuyến (chỉ khi là EXECUTION)
 
-### 🎨 Nhóm 1: Giao diện, Trải nghiệm & Frontend
-- **Yêu cầu UI/UX, redesign, dựng trang, thẩm mỹ, design tokens:** ➔ Tự kích hoạt **`ui-ux`**.
-- **Tạo mockup/prototype thô kiểm chứng ý tưởng hoặc flow:** ➔ Tự kích hoạt **`prototype`**.
-- **Chuyển thiết kế từ Figma sang code/components:** ➔ Tự kích hoạt **`understand-figma`**.
-
-### 🔍 Nhóm 2: Thấu hiểu Codebase & Kiến trúc Dự án
-- **Phân tích toàn diện dự án, vẽ bản đồ cấu trúc tổng thể:** ➔ Tự kích hoạt **`understand`**.
-- **Trực quan hóa kiến trúc codebase dạng dashboard:** ➔ Tự kích hoạt **`understand-dashboard`**.
-- **Lập bản đồ miền nghiệp vụ, domain logic, entities:** ➔ Tự kích hoạt **`understand-domain`** hoặc **`domain-modeling`**.
-- **Giải thích sâu một tính năng, luồng dữ liệu phức tạp:** ➔ Tự kích hoạt **`understand-explain`**.
-- **Phân tích tác động kiến trúc của Git diff / PR:** ➔ Tự kích hoạt **`understand-diff`**.
-- **Tạo tài liệu / lộ trình onboard cho người mới:** ➔ Tự kích hoạt **`understand-onboard`**.
-- **Trích xuất / hợp nhất knowledge graph từ docs:** ➔ Tự kích hoạt **`understand-knowledge`**.
-- **Thiết kế Deep Modules, Seam, giảm độ phức tạp bề mặt:** ➔ Tự kích hoạt **`codebase-design`**.
-- **Tái cấu trúc kiến trúc tổng thể của hệ thống:** ➔ Tự kích hoạt **`improve-codebase-architecture`**.
-
-### 🔎 Nhóm 3: Kiểm duyệt Code (Code Review) & Đảm bảo Chất lượng
-- **Review toàn diện logic, performance, security theo chuẩn enterprise:** ➔ Tự kích hoạt **`open-code-review-alibaba`**.
-- **Review song song bằng sub-agents chuyên trách:** ➔ Tự kích hoạt **`open-code-review-delegate`**.
-- **Review theo 2 trục: Coding Standards vs Spec yêu cầu:** ➔ Tự kích hoạt **`code-review`**.
-- **Review loại bỏ code thừa, over-engineering, dependencies rác:** ➔ Tự kích hoạt **`ponytail-review`**.
-
-### 🪓 Nhóm 4: Triết lý Tối giản Ponytail (KISS & Minimalist Dev)
-- **Tối ưu code ngắn nhất, lười nhất, dùng stdlib/native, bỏ bloat:** ➔ Tự kích hoạt **`ponytail`**.
-- **Audit toàn bộ codebase tìm điểm over-engineering:** ➔ Tự kích hoạt **`ponytail-audit`**.
-- **Thu thập và quản lý nợ kỹ thuật (`ponytail:` comments):** ➔ Tự kích hoạt **`ponytail-debt`**.
-
-### 🧪 Nhóm 5: Chẩn đoán Lỗi (Debugging) & Kiểm thử (Testing)
-- **Truy tìm nguyên nhân gốc rễ bug khó, crash, regression:** ➔ Tự kích hoạt **`diagnosing-bugs`**.
-- **Xây dựng tính năng theo chuẩn Test-Driven Development (TDD):** ➔ Tự kích hoạt **`tdd`**.
-- **Chuẩn hóa type test, loại bỏ type assertion `as`:** ➔ Tự kích hoạt **`migrate-to-shoehorn`**.
-
-### 🛡️ Nhóm 6: Quy trình, An toàn Git & Điều phối Tác vụ Lớn
-- **Ngăn chặn lệnh Git phá hủy (`push --force`, `reset --hard`):** ➔ Tự kích hoạt **`git-guardrails-claude-code`**.
-- **Xử lý xung đột code khi git merge/rebase:** ➔ Tự kích hoạt **`resolving-merge-conflicts`**.
-- **Lập bản đồ ra quyết định cho việc lớn xuyên nhiều session:** ➔ Tự kích hoạt **`wayfinder`**.
-- **Phân loại, sàng lọc issue / pull request theo state machine:** ➔ Tự kích hoạt **`triage`**.
-- **Bàn giao phiên làm việc cho agent tiếp theo:** ➔ Tự kích hoạt **`handoff`**.
+| Nhu cầu / Hành vi | Skill áp dụng |
+|---|---|
+| UI/UX, redesign, thẩm mỹ, design tokens | `ui-ux` |
+| Mockup / prototype thô kiểm chứng ý tưởng | `prototype` |
+| Chuyển thiết kế Figma sang code | `understand-figma` |
+| Hiểu tổng thể dự án / dashboard kiến trúc | `understand` / `understand-dashboard` |
+| Domain logic, entities, aggregates | `understand-domain`, `domain-modeling` |
+| Giải thích sâu 1 tính năng / luồng dữ liệu | `understand-explain` |
+| Phân tích tác động của Git diff / PR | `understand-diff` |
+| Hướng dẫn onboard người mới / knowledge graph | `understand-onboard` / `understand-knowledge` |
+| Thiết kế Deep Modules, tái cấu trúc kiến trúc | `codebase-design` / `improve-codebase-architecture` |
+| Review code | Xem Mục 2 (bắt buộc grill để chọn) |
+| Tối giản code, audit over-engineering, nợ kỹ thuật | `ponytail` / `ponytail-audit` / `ponytail-debt` |
+| Bug khó, crash, regression | `diagnosing-bugs` |
+| TDD, chuẩn hóa type test | `tdd` / `migrate-to-shoehorn` |
+| Chặn lệnh Git phá hủy, xử lý conflict | `git-guardrails-claude-code` / `resolving-merge-conflicts` |
+| Việc lớn nhiều session, triage, bàn giao | `wayfinder` / `triage` / `handoff` |
 
 ---
 
-## 2. Chủ động gợi ý (Proactive Suggestion)
-- Trong trường hợp một tác vụ phức tạp có thể hưởng lợi từ một skill chuyên biệt:
-  * Agent trả lời ngắn gọn giải pháp cơ bản.
-  * ĐỒNG THỜI chủ động gợi ý 1-2 skills liên quan ở cuối câu trả lời:
-    > 💡 *Gợi ý: Tác vụ này có thể dùng skill `[tên-skill]` để [lợi ích ngắn gọn]. Bạn có muốn kích hoạt quy trình này không?*
-- Tuyệt đối không tự động kích hoạt các skill phỏng vấn/chất vấn (`grilling`, `grill-me`) trừ khi người dùng đồng ý hoặc chủ động yêu cầu.
+## 2. Skill trùng nhau: GRILL để người dùng chọn
+*(Grill = dừng lại, hỏi 1 câu ngắn gọn, đưa ra các lựa chọn rõ ràng A, B, C, đợi người dùng phản hồi rồi mới thực thi).*
+
+### Các nhóm trùng cần Grill:
+1. **Hiểu code:** `understand` (tổng thể), `understand-explain` (chi tiết 1 tính năng), `understand-domain` (nghiệp vụ).
+2. **Review code:**
+   - A) `ponytail-review` (Nhanh gọn, cắt bỏ code thừa/over-engineering)
+   - B) `open-code-review-alibaba` (Toàn diện: logic, bảo mật, hiệu năng)
+   - C) `code-review` (Soi theo Coding Standards & Spec dự án)
+3. **Mâu thuẫn triết lý:** `ponytail` (cắt gọn, tối giản) và `codebase-design` (thêm tầng trừu tượng, deep modules).
+
+### Quy tắc Grill:
+- Yêu cầu khớp 2+ skill trong cùng nhóm: Dừng lại, grill. Mẫu: *"Bạn muốn theo hướng nào? A) Nhanh/gọn, B) Toàn diện, C) Theo spec."* Tuyệt đối không tự chọn thay.
+- `ponytail` và `codebase-design` KHÔNG chạy cùng lúc. Nếu cả hai cùng khớp, grill xem người dùng ưu tiên *"gọn"* hay *"cấu trúc"*.
+- Yêu cầu chỉ khớp 1 skill rõ ràng: Chạy luôn theo skill đó, không hỏi thừa.
+- Mỗi lượt chỉ grill đúng 1 câu. Nếu người dùng trả lời *"tùy bạn"*: Chọn skill nhẹ nhất, ngắn gọn nhất và thông báo rõ đã chọn gì.
 
 ---
 
-## 3. BẮT BUỘC: Hiển thị Skill đã áp dụng ở cuối mỗi phản hồi
-Ở dòng cuối cùng của MỌI câu trả lời, Agent BẮT BUỘC phải chèn một dòng trạng thái hiển thị rõ ràng skill/quy tắc nào đã được áp dụng trong lượt trả lời đó, theo định dạng:
+## 3. Fallback (Dự phòng)
+- **Không skill nào khớp:** Làm trực tiếp bằng năng lực cốt lõi, dòng trạng thái cuối ghi: `⚡ Skill áp dụng: None`.
+- **Không đọc được `SKILL.md`:** Báo lỗi 1 dòng ngắn gọn, thực hiện bằng cách thông thường, dòng trạng thái cuối ghi: `⚡ Skill áp dụng: None (lỗi đọc skill)`.
 
-`⚡ Skill áp dụng: [tên skill hoặc quy tắc được dùng] (hoặc "None" nếu là câu hỏi trò chuyện thông thường)`
+---
 
-*Ví dụ:*
-- `⚡ Skill áp dụng: ui-ux`
-- `⚡ Skill áp dụng: understand, understand-explain`
-- `⚡ Skill áp dụng: open-code-review-alibaba`
-- `⚡ Skill áp dụng: ponytail, codebase-design`
-- `⚡ Skill áp dụng: diagnosing-bugs`
-- `⚡ Skill áp dụng: None`
+## 4. Gợi ý chủ động (Proactive Suggestion)
+Chỉ chủ động gợi ý skill khi tác vụ chạm ít nhất 1 trong 3 điều kiện:
+1. Cần sửa từ 3 file trở lên.
+2. Cần thực hiện từ 3 bước trở lên.
+3. Chạm vào kiến trúc hệ thống hoặc bảo mật.
+
+Cú pháp gợi ý (tối đa 1-2 skill ở cuối phản hồi):
+> 💡 *Gợi ý: Skill `[tên]` giúp [lợi ích]. Bạn có muốn kích hoạt không?*
+
+*(Không tự ý chạy `grill-me` hay `grilling`, trừ khi rơi vào tình huống phân nhánh ở Mục 2 hoặc người dùng yêu cầu).*
+
+---
+
+## 5. Hành động cần xác nhận trước khi làm
+Bắt buộc phải giải thích và hỏi xác nhận từ người dùng trước khi thực hiện các hành động sau:
+- Xóa file hoặc xóa thư mục.
+- Ghi đè file mã nguồn đã có sẵn.
+- Cài đặt hoặc gỡ bỏ package / dependency / extension.
+- Chạy các lệnh hệ thống có khả năng thay đổi môi trường.
+- Mọi lệnh Git có tính chất phá hủy (`git push --force`, `git reset --hard`, `git clean -f`).
+
+---
+
+## 6. Dòng trạng thái bắt buộc (Dòng cuối cùng của MỌI phản hồi)
+Ở dòng cuối cùng của mỗi tin nhắn trả lời, Agent BẮT BUỘC phải chèn một dòng trạng thái hiển thị rõ skill đang áp dụng:
+
+`⚡ Skill áp dụng: [tên skill hoặc "None"]`
+*(Nếu đang dừng lại để hỏi lựa chọn ở Mục 2, ghi: `⚡ Skill áp dụng: Waiting user selection`)*
