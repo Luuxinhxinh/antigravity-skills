@@ -4,44 +4,39 @@ Kho lưu trữ và bộ sưu tập các kỹ năng (Skills) chuyên sâu dành c
 
 ---
 
-## ⚡ Cài đặt nhanh (Quick Install)
+## ⚡ Cài đặt nhanh với `npx` / `bunx` (Chuẩn quốc tế [skills.sh](https://skills.sh))
 
-### 🌐 Cách 1: Chuẩn Quốc tế với `npx` / `bunx` (Hỗ trợ Antigravity, Claude Code, Cursor...)
-Cài đặt trực tiếp qua bộ công cụ chuẩn hệ sinh thái [skills.sh](https://skills.sh):
+Hỗ trợ tự động nhận diện và cấu hình cho **Antigravity**, **Claude Code**, **Cursor**, **Codex**, **OpenCode**...
 
+### 🚀 Cài đặt toàn bộ kho skills cho Antigravity (Toàn cục):
 ```bash
-# Cài toàn bộ kho skills cho Antigravity (Toàn cục):
 npx skills add Luuxinhxinh/antigravity-skills -a antigravity --all -g
-
-# Hoặc dùng bunx:
+```
+*Hoặc sử dụng `bunx`:*
+```bash
 bunx skills add Luuxinhxinh/antigravity-skills -a antigravity --all -g
 ```
 
-> **Cài lẻ từng skill cụ thể:**
-> ```bash
-> # Cài skill UI/UX (evondevKit)
-> npx skills add Luuxinhxinh/antigravity-skills --skill ui-ux -a antigravity -g
-> 
-> # Cài bộ Understand Codebase
-> npx skills add Luuxinhxinh/antigravity-skills --skill understand -a antigravity -g
-> 
-> # Cài cho TẤT CẢ các AI Agent khác (Claude Code, Cursor, Codex...):
-> npx skills add Luuxinhxinh/antigravity-skills --all -g
-> ```
+---
+
+### 🎯 Cài lẻ từng skill cụ thể:
+```bash
+# Cài skill UI/UX (evondevKit)
+npx skills add Luuxinhxinh/antigravity-skills --skill ui-ux -a antigravity -g
+
+# Cài bộ Understand Codebase (Egonex-AI)
+npx skills add Luuxinhxinh/antigravity-skills --skill understand -a antigravity -g
+
+# Cài bộ Review Code Chuẩn Enterprise (Alibaba)
+npx skills add Luuxinhxinh/antigravity-skills --skill open-code-review-alibaba -a antigravity -g
+```
 
 ---
 
-### 🪟 Cách 2: Script 1 dòng tự động (Kèm Bộ điều phối `skill-router`)
-Tự động đồng bộ vào toàn bộ thư mục Antigravity trên máy và kích hoạt Bộ não điều phối `skill-router.md`:
-
-- **Windows (PowerShell):**
-  ```powershell
-  irm https://raw.githubusercontent.com/Luuxinhxinh/antigravity-skills/main/install.ps1 | iex
-  ```
-- **Linux / macOS (Bash / Zsh):**
-  ```bash
-  curl -fsSL https://raw.githubusercontent.com/Luuxinhxinh/antigravity-skills/main/install.sh | bash
-  ```
+### 🌐 Cài cho TẤT CẢ các AI Agent khác (Claude Code, Cursor, Codex...):
+```bash
+npx skills add Luuxinhxinh/antigravity-skills --all -g
+```
 
 ---
 
