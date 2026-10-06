@@ -93,14 +93,29 @@ Chia sẻ kiến thức, viết hướng dẫn và cấu hình hệ sinh thái A
 
 ---
 
-## 🚀 Cách cài đặt & sử dụng
+## ⚡ Cài đặt nhanh trong 10 giây (Quick Install)
 
-### 1. Cài đặt vào môi trường Antigravity IDE cá nhân (Global)
-Copy skill mong muốn vào thư mục:
-```text
-C:\Users\<USER>\.gemini\config\skills\<tên-skill>
+Chỉ cần mở Terminal / PowerShell và dán **1 dòng lệnh duy nhất**, toàn bộ 49+ skills và Bộ điều phối `skill-router` sẽ tự động được tải và cấu hình hoàn chỉnh vào Antigravity IDE:
+
+### 🪟 Windows (PowerShell):
+```powershell
+irm https://raw.githubusercontent.com/Luuxinhxinh/antigravity-skills/main/install.ps1 | iex
 ```
 
-### 2. Kích hoạt trong hội thoại
-- **Tự động (Autonomous):** AI Agent sẽ tự động phát hiện intent phù hợp và kích hoạt quy trình của skill.
-- **Thủ công:** Gọi trực tiếp lệnh hoặc prompt chỉ định skill tương ứng (VD: `/ui-ux`, `/tdd`, `ponytail`, v.v.).
+### 🐧 Linux / macOS (Bash / Zsh):
+```bash
+curl -fsSL https://raw.githubusercontent.com/Luuxinhxinh/antigravity-skills/main/install.sh | bash
+```
+
+---
+
+## 🚀 Kích hoạt & Sử dụng trong hội thoại
+
+- **Tự động (Autonomous Routing):** Bộ điều phối `skill-router` luôn chạy ngầm để nhận diện intent và kích hoạt skill phù hợp (ví dụ: khi yêu cầu thiết kế UI, tối ưu KISS code, chẩn đoán lỗi hay review code).
+- **Thủ công (Manual / Slash Commands):** Bạn có thể gõ trực tiếp tên lệnh ở đầu prompt:
+  - `/ui-ux` — Thiết kế giao diện, layout, design tokens, micro-interactions.
+  - `/understand` — Khảo sát và phân tích bản đồ cấu trúc toàn bộ codebase.
+  - `/open-code-review` — Review code chuẩn enterprise của Alibaba.
+  - `/ponytail` — Tối ưu code theo phong cách cực kỳ tinh gọn, không boilerplate.
+  - `/tdd` — Phát triển theo chu trình Test-Driven Development (Red-Green-Refactor).
+
