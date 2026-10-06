@@ -93,16 +93,44 @@ Chia sẻ kiến thức, viết hướng dẫn và cấu hình hệ sinh thái A
 
 ---
 
-## ⚡ Cài đặt nhanh trong 10 giây (Quick Install)
+## ⚡ Cài đặt siêu tốc bằng `npx skills` (Chuẩn hệ sinh thái quốc tế 🌐)
 
-Chỉ cần mở Terminal / PowerShell và dán **1 dòng lệnh duy nhất**, toàn bộ 49+ skills và Bộ điều phối `skill-router` sẽ tự động được tải và cấu hình hoàn chỉnh vào Antigravity IDE:
+Repo của bạn tương thích hoàn toàn 100% với chuẩn **`skills.sh`**! Bất kỳ ai trên thế giới cũng có thể dùng `npx` hoặc `bunx` cài trực tiếp:
 
-### 🪟 Windows (PowerShell):
+### 1. Cài toàn bộ kho kỹ năng cho Antigravity (Toàn cục):
+```bash
+npx skills add Luuxinhxinh/antigravity-skills -a antigravity --all -g
+```
+
+### 2. Cài lẻ từng skill cụ thể:
+```bash
+# Cài skill UI/UX của Evondev
+npx skills add Luuxinhxinh/antigravity-skills --skill ui-ux -a antigravity -g
+
+# Cài bộ Understand Codebase
+npx skills add Luuxinhxinh/antigravity-skills --skill understand -a antigravity -g
+
+# Cài review code Alibaba
+npx skills add Luuxinhxinh/antigravity-skills --skill open-code-review-alibaba -a antigravity -g
+```
+
+### 3. Cài cho TẤT CẢ Agent khác (Claude Code, Cursor, Codex, OpenCode...):
+```bash
+npx skills add Luuxinhxinh/antigravity-skills --all -g
+```
+
+---
+
+## 🪟 Script cài đặt tự động kèm Router (1 dòng PowerShell / Bash)
+
+Nếu muốn cài cả **49+ skills VÀ Bộ não điều phối `skill-router.md`** chỉ với 1 click:
+
+### Windows (PowerShell):
 ```powershell
 irm https://raw.githubusercontent.com/Luuxinhxinh/antigravity-skills/main/install.ps1 | iex
 ```
 
-### 🐧 Linux / macOS (Bash / Zsh):
+### Linux / macOS:
 ```bash
 curl -fsSL https://raw.githubusercontent.com/Luuxinhxinh/antigravity-skills/main/install.sh | bash
 ```
